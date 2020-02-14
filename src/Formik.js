@@ -4,7 +4,7 @@ import {
   Button,
   CardHeader,
   CircularProgress,
-  TextField
+  TextField,
 } from '@material-ui/core';
 import { registerSchema } from './schemas';
 
@@ -22,16 +22,16 @@ export const FormikForm = () => {
     isSubmitting,
     setSubmitting,
     touched,
-    values
+    values,
   } = useFormik({
     initialValues: {
       firstName: '',
       lastName: '',
       phoneNumber: '',
-      email: ''
+      email: '',
     },
     onSubmit: () => handleRegisterSubmit(),
-    validationSchema: registerSchema
+    validationSchema: registerSchema,
   });
 
   const handleRegisterSubmit = async () => {
@@ -46,7 +46,7 @@ export const FormikForm = () => {
     return (
       <>
         <div className="header">
-          <img alt="formik logo" src="https://i.imgur.com/70wP7Gs.png" />
+          <img alt="formik logo" src="https://i.imgur.com/Pua2PZX.png" />
           <CardHeader title="Registered!" />
         </div>
         <Button
@@ -63,7 +63,7 @@ export const FormikForm = () => {
   return (
     <form onSubmit={handleSubmit}>
       <div className="header">
-        <img alt="formik logo" src="https://i.imgur.com/70wP7Gs.png" />
+        <img alt="formik logo" src="https://i.imgur.com/Pua2PZX.png" />
         <CardHeader title="Register with Formik" />
       </div>
       <div>

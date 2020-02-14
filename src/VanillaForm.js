@@ -3,7 +3,7 @@ import {
   Button,
   CardHeader,
   CircularProgress,
-  TextField
+  TextField,
 } from '@material-ui/core';
 import { EMAIL_REG_EX, PHONE_NUMBER_REG_EX } from './constants';
 
@@ -12,7 +12,7 @@ export const VanillaForm = () => {
     firstName: '',
     lastName: '',
     phoneNumber: '',
-    email: ''
+    email: '',
   };
 
   const [firstName, setFirstName] = useState(initialValues.firstName);

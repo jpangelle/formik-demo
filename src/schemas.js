@@ -11,5 +11,5 @@ export const registerSchema = yup.object().shape({
   phoneNumber: yup
     .string()
     .matches(PHONE_NUMBER_REG_EX, 'Invalid phone number')
-    .required()
+    .required(),
 });
