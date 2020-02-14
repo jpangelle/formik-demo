@@ -54,7 +54,7 @@ export const FormikForm = () => {
           onClick={() => setRegistered(false)}
           variant="contained"
         >
-          Reregister
+          Reset Form
         </Button>
       </>
     );

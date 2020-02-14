@@ -88,7 +88,7 @@ export const VanillaForm = () => {
           onClick={() => setRegistered(false)}
           variant="contained"
         >
-          Reregister
+          Reset Form
         </Button>
       </>
     );
