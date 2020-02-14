@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
-import { Button, CircularProgress, TextField } from '@material-ui/core';
+import {
+  Button,
+  CardHeader,
+  CircularProgress,
+  TextField
+} from '@material-ui/core';
 import { registerSchema } from './schemas';
 
 export const FormikForm = () => {
@@ -12,6 +17,7 @@ export const FormikForm = () => {
     isValid,
     handleBlur,
     handleChange,
+    handleReset,
     handleSubmit,
     isSubmitting,
     setSubmitting,
@@ -31,6 +37,7 @@ export const FormikForm = () => {
   const handleRegisterSubmit = async () => {
     setSubmitting(true);
     await new Promise(resolve => setTimeout(resolve, 2000));
+    handleReset();
     setSubmitting(false);
     setRegistered(true);
   };
@@ -38,7 +45,10 @@ export const FormikForm = () => {
   if (isRegistered) {
     return (
       <>
-        <h2>Registered</h2>
+        <div className="header">
+          <img alt="formik logo" src="https://i.imgur.com/70wP7Gs.png" />
+          <CardHeader title="Registered!" />
+        </div>
         <Button
           color="primary"
           onClick={() => setRegistered(false)}
@@ -53,8 +63,8 @@ export const FormikForm = () => {
   return (
     <form onSubmit={handleSubmit}>
       <div className="header">
-        <img alt="vanilla ice cream" src="https://i.imgur.com/70wP7Gs.png" />
-        <h2>Register via Formik</h2>
+        <img alt="formik logo" src="https://i.imgur.com/70wP7Gs.png" />
+        <CardHeader title="Register with Formik" />
       </div>
       <div>
         <TextField
@@ -72,7 +82,7 @@ export const FormikForm = () => {
         <TextField
           error={errors.lastName && touched.lastName}
           id="last-name"
-          label="Last name"
+          label="Last Name"
           name="lastName"
           onBlur={handleBlur}
           onChange={handleChange}
@@ -84,7 +94,7 @@ export const FormikForm = () => {
         <TextField
           error={errors.phoneNumber && touched.phoneNumber}
           id="phone-number"
-          label="Phone number"
+          label="Phone Number"
           name="phoneNumber"
           onBlur={handleBlur}
           onChange={handleChange}
@@ -110,8 +120,14 @@ export const FormikForm = () => {
         variant="contained"
         color="primary"
       >
-        {isSubmitting && <CircularProgress />}
-        Submit
+        {isSubmitting ? (
+          <>
+            <CircularProgress size={14} />
+            <span className="submitting">Submitting...</span>
+          </>
+        ) : (
+          'Submit'
+        )}
       </Button>
     </form>
   );

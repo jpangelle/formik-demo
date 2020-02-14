@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
-import { Button, CircularProgress, TextField } from '@material-ui/core';
+import {
+  Button,
+  CardHeader,
+  CircularProgress,
+  TextField
+} from '@material-ui/core';
 import { EMAIL_REG_EX, PHONE_NUMBER_REG_EX } from './constants';
 
 export const VanillaForm = () => {
@@ -63,6 +68,10 @@ export const VanillaForm = () => {
   const handleRegisterSubmit = async () => {
     setSubmitting(true);
     await new Promise(resolve => setTimeout(resolve, 2000));
+    setFirstName(initialValues.firstName);
+    setLastName(initialValues.lastName);
+    setPhoneNumber(initialValues.phoneNumber);
+    setEmail(initialValues.email);
     setSubmitting(false);
     setRegistered(true);
   };
@@ -70,7 +79,10 @@ export const VanillaForm = () => {
   if (isRegistered) {
     return (
       <>
-        <h2>Registered</h2>
+        <div className="header">
+          <img alt="vanilla ice cream" src="https://i.imgur.com/jgy3Z6j.png" />
+          <CardHeader title="Registered!" />
+        </div>
         <Button
           color="primary"
           onClick={() => setRegistered(false)}
@@ -91,7 +103,7 @@ export const VanillaForm = () => {
     >
       <div className="header">
         <img alt="vanilla ice cream" src="https://i.imgur.com/jgy3Z6j.png" />
-        <h2>Register via Vanilla Form</h2>
+        <CardHeader title="Register with Vanilla Form" />
       </div>
       <div>
         <TextField
@@ -116,7 +128,7 @@ export const VanillaForm = () => {
         <TextField
           error={lastNameValid === false && lastNameTouched}
           id="last-name"
-          label="Last name"
+          label="Last Name"
           onBlur={() => {
             setLastNameTouched(true);
             validateLastName(lastName);
@@ -135,7 +147,7 @@ export const VanillaForm = () => {
         <TextField
           error={phoneNumberValid === false && phoneNumberTouched}
           id="phone-number"
-          label="Phone number"
+          label="Phone Number"
           onBlur={() => {
             setPhoneNumberTouched(true);
             validatePhoneNumber(phoneNumber);
@@ -181,8 +193,14 @@ export const VanillaForm = () => {
         type="submit"
         variant="contained"
       >
-        {isSubmitting && <CircularProgress />}
-        Submit
+        {isSubmitting ? (
+          <>
+            <CircularProgress size={14} />
+            <span className="submitting">Submitting...</span>
+          </>
+        ) : (
+          'Submit'
+        )}
       </Button>
     </form>
   );
