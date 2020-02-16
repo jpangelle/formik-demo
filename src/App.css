@@ -87,6 +87,7 @@ h2 {
     justify-items: center;
     align-items: center;
     column-gap: 40px;
+    row-gap: 40px;
   }
 
   .App .forms > div:nth-child(1) {
