@@ -3,6 +3,8 @@
 
 [Live Site](https://objective-nobel-dcb269.netlify.com/) | [Code Sandbox](https://codesandbox.io/s/formik-demo-ws1fm)
 
+<img alt="form-demo-screenshot" src="https://i.imgur.com/H45cFeZ.png" />
+
 </div>
 
 ### To Run Locally
