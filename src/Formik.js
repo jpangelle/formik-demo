@@ -12,16 +12,16 @@ export const FormikForm = () => {
   const [isRegistered, setRegistered] = useState(false);
 
   const {
-    dirty,
     errors,
-    isValid,
     handleBlur,
     handleChange,
     handleReset,
     handleSubmit,
     isSubmitting,
     setSubmitting,
+    setTouched,
     touched,
+    validateForm,
     values,
   } = useFormik({
     initialValues: {
@@ -31,11 +31,11 @@ export const FormikForm = () => {
       email: '',
     },
     onSubmit: () => handleRegisterSubmit(),
+    validateOnBlur: false,
     validationSchema: registerSchema,
   });
 
   const handleRegisterSubmit = async () => {
-    setSubmitting(true);
     await new Promise(resolve => setTimeout(resolve, 2000));
     handleReset();
     setSubmitting(false);
@@ -45,7 +45,7 @@ export const FormikForm = () => {
   if (isRegistered) {
     return (
       <>
-        <div className="header">
+        <div className="card-header">
           <img alt="formik logo" src="https://i.imgur.com/Pua2PZX.png" />
           <CardHeader title="Registered!" />
         </div>
@@ -62,18 +62,22 @@ export const FormikForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="header">
+      <div className="card-header">
         <img alt="formik logo" src="https://i.imgur.com/Pua2PZX.png" />
         <CardHeader title="Register with Formik" />
       </div>
       <div>
         <TextField
           error={errors.firstName && touched.firstName}
+          fullWidth
           id="first-name"
           label="First Name"
           name="firstName"
           onBlur={handleBlur}
           onChange={handleChange}
+          onInvalid={event => {
+            event.preventDefault();
+          }}
           required
           value={values.firstName}
         />
@@ -81,11 +85,15 @@ export const FormikForm = () => {
       <div>
         <TextField
           error={errors.lastName && touched.lastName}
+          fullWidth
           id="last-name"
           label="Last Name"
           name="lastName"
           onBlur={handleBlur}
           onChange={handleChange}
+          onInvalid={event => {
+            event.preventDefault();
+          }}
           required
           value={values.lastName}
         />
@@ -93,11 +101,15 @@ export const FormikForm = () => {
       <div>
         <TextField
           error={errors.phoneNumber && touched.phoneNumber}
+          fullWidth
           id="phone-number"
           label="Phone Number"
           name="phoneNumber"
           onBlur={handleBlur}
           onChange={handleChange}
+          onInvalid={event => {
+            event.preventDefault();
+          }}
           required
           value={values.phoneNumber}
         />
@@ -105,20 +117,33 @@ export const FormikForm = () => {
       <div>
         <TextField
           error={errors.email && touched.email}
+          fullWidth
           id="email"
           label="Email"
           name="email"
           onBlur={handleBlur}
           onChange={handleChange}
+          onInvalid={event => {
+            event.preventDefault();
+          }}
           required
           value={values.email}
         />
       </div>
       <Button
-        type="submit"
-        disabled={!isValid || !dirty || isSubmitting}
-        variant="contained"
         color="primary"
+        disabled={isSubmitting}
+        onClick={() => {
+          setTouched({
+            firstName: true,
+            lastName: true,
+            phoneNumber: true,
+            email: true,
+          });
+          validateForm();
+        }}
+        type="submit"
+        variant="contained"
       >
         {isSubmitting ? (
           <>

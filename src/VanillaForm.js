@@ -33,6 +33,8 @@ export const VanillaForm = () => {
   const [isSubmitting, setSubmitting] = useState(false);
   const [isRegistered, setRegistered] = useState(false);
 
+  const [isFormValid, setFormIsValid] = useState(false);
+
   const validateFirstName = value => {
     if (value) {
       setFirstNameValid(true);
@@ -65,6 +67,18 @@ export const VanillaForm = () => {
     }
   };
 
+  const validateForm = () => {
+    if (firstNameValid && lastNameValid && phoneNumberValid && emailValid) {
+      setFormIsValid(true);
+    } else {
+      setFirstNameValid(false);
+      setLastNameValid(false);
+      setPhoneNumberValid(false);
+      setEmailValid(false);
+      setFormIsValid(false);
+    }
+  };
+
   const handleRegisterSubmit = async () => {
     setSubmitting(true);
     await new Promise(resolve => setTimeout(resolve, 2000));
@@ -79,7 +93,7 @@ export const VanillaForm = () => {
   if (isRegistered) {
     return (
       <>
-        <div className="header">
+        <div className="card-header">
           <img alt="vanilla ice cream" src="https://i.imgur.com/jgy3Z6j.png" />
           <CardHeader title="Registered!" />
         </div>
@@ -98,16 +112,19 @@ export const VanillaForm = () => {
     <form
       onSubmit={event => {
         event.preventDefault();
-        handleRegisterSubmit();
+        if (isFormValid) {
+          handleRegisterSubmit();
+        }
       }}
     >
-      <div className="header">
+      <div className="card-header">
         <img alt="vanilla ice cream" src="https://i.imgur.com/jgy3Z6j.png" />
         <CardHeader title="Register with Vanilla Form" />
       </div>
       <div>
         <TextField
           error={firstNameValid === false && firstNameTouched}
+          fullWidth
           id="first-name"
           label="First Name"
           onBlur={() => {
@@ -120,6 +137,9 @@ export const VanillaForm = () => {
             setFirstName(value);
             validateFirstName(value);
           }}
+          onInvalid={event => {
+            event.preventDefault();
+          }}
           required
           value={firstName}
         />
@@ -127,6 +147,7 @@ export const VanillaForm = () => {
       <div>
         <TextField
           error={lastNameValid === false && lastNameTouched}
+          fullWidth
           id="last-name"
           label="Last Name"
           onBlur={() => {
@@ -139,6 +160,9 @@ export const VanillaForm = () => {
             setLastName(value);
             validateLastName(value);
           }}
+          onInvalid={event => {
+            event.preventDefault();
+          }}
           required
           value={lastName}
         />
@@ -146,6 +170,7 @@ export const VanillaForm = () => {
       <div>
         <TextField
           error={phoneNumberValid === false && phoneNumberTouched}
+          fullWidth
           id="phone-number"
           label="Phone Number"
           onBlur={() => {
@@ -158,6 +183,9 @@ export const VanillaForm = () => {
             setPhoneNumber(value);
             validatePhoneNumber(value);
           }}
+          onInvalid={event => {
+            event.preventDefault();
+          }}
           required
           value={phoneNumber}
         />
@@ -165,6 +193,7 @@ export const VanillaForm = () => {
       <div>
         <TextField
           error={emailValid === false && emailTouched}
+          fullWidth
           id="email"
           label="Email"
           onBlur={() => {
@@ -177,19 +206,23 @@ export const VanillaForm = () => {
             setEmail(value);
             validateEmail(value);
           }}
+          onInvalid={event => {
+            event.preventDefault();
+          }}
           required
           value={email}
         />
       </div>
       <Button
         color="primary"
-        disabled={
-          !firstNameValid ||
-          !lastNameValid ||
-          !phoneNumberValid ||
-          !emailValid ||
-          isSubmitting
-        }
+        disabled={isSubmitting}
+        onClick={() => {
+          setFirstNameTouched(true);
+          setLastNameTouched(true);
+          setPhoneNumberTouched(true);
+          setEmailTouched(true);
+          validateForm();
+        }}
         type="submit"
         variant="contained"
       >
