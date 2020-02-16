@@ -36,7 +36,7 @@ export const VanillaForm = () => {
   const [isFormValid, setFormIsValid] = useState(false);
 
   const validateFirstName = value => {
-    if (value) {
+    if (value.length >= 2 && value.length <= 50) {
       setFirstNameValid(true);
     } else {
       setFirstNameValid(false);
@@ -44,7 +44,7 @@ export const VanillaForm = () => {
   };
 
   const validateLastName = value => {
-    if (value) {
+    if (value.length >= 2 && value.length <= 50) {
       setLastNameValid(true);
     } else {
       setLastNameValid(false);
@@ -60,7 +60,7 @@ export const VanillaForm = () => {
   };
 
   const validateEmail = value => {
-    if (EMAIL_REG_EX.test(value)) {
+    if (EMAIL_REG_EX.test(value) && value.length <= 75) {
       setEmailValid(true);
     } else {
       setEmailValid(false);
