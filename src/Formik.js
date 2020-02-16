@@ -31,7 +31,6 @@ export const FormikForm = () => {
       email: '',
     },
     onSubmit: () => handleRegisterSubmit(),
-    validateOnBlur: false,
     validationSchema: registerSchema,
   });
 
@@ -70,6 +69,7 @@ export const FormikForm = () => {
         <TextField
           error={errors.firstName && touched.firstName}
           fullWidth
+          helperText={touched.firstName && errors.firstName}
           id="first-name"
           label="First Name"
           name="firstName"
@@ -86,6 +86,7 @@ export const FormikForm = () => {
         <TextField
           error={errors.lastName && touched.lastName}
           fullWidth
+          helperText={touched.lastName && errors.lastName}
           id="last-name"
           label="Last Name"
           name="lastName"
@@ -102,6 +103,7 @@ export const FormikForm = () => {
         <TextField
           error={errors.phoneNumber && touched.phoneNumber}
           fullWidth
+          helperText={touched.phoneNumber && errors.phoneNumber}
           id="phone-number"
           label="Phone Number"
           name="phoneNumber"
@@ -118,6 +120,7 @@ export const FormikForm = () => {
         <TextField
           error={errors.email && touched.email}
           fullWidth
+          helperText={touched.email && errors.email}
           id="email"
           label="Email"
           name="email"

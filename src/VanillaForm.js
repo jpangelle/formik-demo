@@ -25,10 +25,10 @@ export const VanillaForm = () => {
   const [phoneNumberTouched, setPhoneNumberTouched] = useState(false);
   const [emailTouched, setEmailTouched] = useState(false);
 
-  const [firstNameValid, setFirstNameValid] = useState();
-  const [lastNameValid, setLastNameValid] = useState();
-  const [phoneNumberValid, setPhoneNumberValid] = useState();
-  const [emailValid, setEmailValid] = useState();
+  const [firstNameError, setFirstNameError] = useState();
+  const [lastNameError, setLastNameError] = useState();
+  const [phoneNumberError, setPhoneNumberError] = useState();
+  const [emailError, setEmailError] = useState();
 
   const [isSubmitting, setSubmitting] = useState(false);
   const [isRegistered, setRegistered] = useState(false);
@@ -36,39 +36,62 @@ export const VanillaForm = () => {
   const [isFormValid, setFormIsValid] = useState(false);
 
   const validateFirstName = value => {
-    if (value.length >= 2 && value.length <= 50) {
-      setFirstNameValid(true);
+    if (!value) {
+      setFirstNameError('First name is required');
+    } else if (value.length < 2) {
+      setFirstNameError('First name must be at least 2 characters');
+    } else if (value.length >= 50) {
+      setFirstNameError('First name must be less than 50 characters');
     } else {
-      setFirstNameValid(false);
+      setFirstNameError(false);
     }
   };
 
   const validateLastName = value => {
-    if (value.length >= 2 && value.length <= 50) {
-      setLastNameValid(true);
+    if (!value) {
+      setLastNameError('Last name is required');
+    } else if (value.length < 2) {
+      setLastNameError('Last name must be at least 2 characters');
+    } else if (value.length >= 50) {
+      setLastNameError('Last name must be less than 50 characters');
     } else {
-      setLastNameValid(false);
+      setLastNameError(false);
     }
   };
 
   const validatePhoneNumber = value => {
-    if (PHONE_NUMBER_REG_EX.test(value)) {
-      setPhoneNumberValid(true);
+    if (!value) {
+      setPhoneNumberError('Phone number is required');
+    } else if (!PHONE_NUMBER_REG_EX.test(value)) {
+      setPhoneNumberError('Invalid phone number');
     } else {
-      setPhoneNumberValid(false);
+      setPhoneNumberError(false);
     }
   };
 
   const validateEmail = value => {
-    if (EMAIL_REG_EX.test(value) && value.length <= 75) {
-      setEmailValid(true);
+    if (!value) {
+      setEmailError('Email address is required');
+    } else if (!EMAIL_REG_EX.test(value)) {
+      setEmailError('Invalid email address');
+    } else if (value.length >= 75) {
+      setEmailError('Email address must be less than 75 characters');
     } else {
-      setEmailValid(false);
+      setEmailError(false);
     }
   };
 
   const validateForm = () => {
-    if (firstNameValid && lastNameValid && phoneNumberValid && emailValid) {
+    if (
+      !firstNameError &&
+      firstNameError !== undefined &&
+      !lastNameError &&
+      lastNameError !== undefined &&
+      !phoneNumberError &&
+      phoneNumberError !== undefined &&
+      !emailError &&
+      emailError !== undefined
+    ) {
       setFormIsValid(true);
     } else {
       validateFirstName(firstName);
@@ -93,10 +116,10 @@ export const VanillaForm = () => {
     setPhoneNumberTouched(false);
     setEmailTouched(false);
 
-    setFirstNameValid();
-    setLastNameValid();
-    setPhoneNumberValid();
-    setEmailValid();
+    setFirstNameError();
+    setLastNameError();
+    setPhoneNumberError();
+    setEmailError();
 
     setSubmitting(false);
     setRegistered(true);
@@ -135,8 +158,9 @@ export const VanillaForm = () => {
       </div>
       <div>
         <TextField
-          error={firstNameValid === false && firstNameTouched}
+          error={firstNameError && firstNameTouched}
           fullWidth
+          helperText={firstNameTouched && firstNameError}
           id="first-name"
           label="First Name"
           onBlur={() => {
@@ -145,7 +169,7 @@ export const VanillaForm = () => {
           }}
           onChange={event => {
             const { value } = event.target;
-            setFirstNameValid();
+            setFirstNameError();
             setFirstName(value);
             validateFirstName(value);
           }}
@@ -158,8 +182,9 @@ export const VanillaForm = () => {
       </div>
       <div>
         <TextField
-          error={lastNameValid === false && lastNameTouched}
+          error={lastNameError && lastNameTouched}
           fullWidth
+          helperText={lastNameTouched && lastNameError}
           id="last-name"
           label="Last Name"
           onBlur={() => {
@@ -168,7 +193,7 @@ export const VanillaForm = () => {
           }}
           onChange={event => {
             const { value } = event.target;
-            setLastNameValid();
+            setLastNameError();
             setLastName(value);
             validateLastName(value);
           }}
@@ -181,8 +206,9 @@ export const VanillaForm = () => {
       </div>
       <div>
         <TextField
-          error={phoneNumberValid === false && phoneNumberTouched}
+          error={phoneNumberError && phoneNumberTouched}
           fullWidth
+          helperText={phoneNumberTouched && phoneNumberError}
           id="phone-number"
           label="Phone Number"
           onBlur={() => {
@@ -191,7 +217,7 @@ export const VanillaForm = () => {
           }}
           onChange={event => {
             const { value } = event.target;
-            setPhoneNumberValid();
+            setPhoneNumberError();
             setPhoneNumber(value);
             validatePhoneNumber(value);
           }}
@@ -204,8 +230,9 @@ export const VanillaForm = () => {
       </div>
       <div>
         <TextField
-          error={emailValid === false && emailTouched}
+          error={emailError && emailTouched}
           fullWidth
+          helperText={emailTouched && emailError}
           id="email"
           label="Email"
           onBlur={() => {
@@ -214,7 +241,7 @@ export const VanillaForm = () => {
           }}
           onChange={event => {
             const { value } = event.target;
-            setEmailValid();
+            setEmailError();
             setEmail(value);
             validateEmail(value);
           }}
