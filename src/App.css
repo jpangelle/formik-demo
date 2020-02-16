@@ -1,7 +1,16 @@
 .App {
   height: 100%;
   display: grid;
-  grid-template-columns: 10% 1fr 1fr 10%;
+  grid-template-columns: 130px 1fr 1fr 130px;
+}
+
+.forms {
+  display: grid;
+  grid-column: 2/4;
+  justify-items: center;
+  align-items: center;
+  margin: 0 15%;
+  column-gap: 40px;
 }
 
 .header {
@@ -19,15 +28,6 @@
 .codesandbox {
   width: 40px;
   height: 40px;
-}
-
-.forms {
-  display: grid;
-  grid-column: 2/4;
-  justify-items: center;
-  align-items: center;
-  margin: 0 15%;
-  column-gap: 40px;
 }
 
 .App .forms > div:nth-child(1) {
@@ -63,4 +63,36 @@ h2 {
 
 .App .submitting {
   padding-left: 10px;
+}
+
+@media (max-width: 1350px) {
+  .App {
+    grid-template-columns: 130px auto auto;
+  }
+
+  .forms {
+    margin: 0 5%;
+  }
+}
+
+@media (max-width: 1180px) {
+  .App {
+    grid-template-columns: 130px auto auto;
+  }
+
+  .forms {
+    display: grid;
+    grid-column: 2/4;
+    justify-items: center;
+    align-items: center;
+    column-gap: 40px;
+  }
+
+  .App .forms > div:nth-child(1) {
+    grid-column: 1/4;
+  }
+
+  .App .forms > div:nth-child(2) {
+    grid-column: 1/4;
+  }
 }
