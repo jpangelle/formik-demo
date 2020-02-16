@@ -15,6 +15,13 @@ export const VanillaForm = () => {
     email: '',
   };
 
+  const initialErrors = {
+    firstName: 'First name is required',
+    lastName: 'Last name is required',
+    phoneNumber: 'Phone number is required',
+    email: 'Email address is required',
+  };
+
   const [firstName, setFirstName] = useState(initialValues.firstName);
   const [lastName, setLastName] = useState(initialValues.lastName);
   const [phoneNumber, setPhoneNumber] = useState(initialValues.phoneNumber);
@@ -25,10 +32,12 @@ export const VanillaForm = () => {
   const [phoneNumberTouched, setPhoneNumberTouched] = useState(false);
   const [emailTouched, setEmailTouched] = useState(false);
 
-  const [firstNameError, setFirstNameError] = useState();
-  const [lastNameError, setLastNameError] = useState();
-  const [phoneNumberError, setPhoneNumberError] = useState();
-  const [emailError, setEmailError] = useState();
+  const [firstNameError, setFirstNameError] = useState(initialErrors.firstName);
+  const [lastNameError, setLastNameError] = useState(initialErrors.lastName);
+  const [phoneNumberError, setPhoneNumberError] = useState(
+    initialErrors.phoneNumber,
+  );
+  const [emailError, setEmailError] = useState(initialErrors.email);
 
   const [isSubmitting, setSubmitting] = useState(false);
   const [isRegistered, setRegistered] = useState(false);
@@ -82,23 +91,14 @@ export const VanillaForm = () => {
   };
 
   const validateForm = () => {
-    if (
-      !firstNameError &&
-      firstNameError !== undefined &&
-      !lastNameError &&
-      lastNameError !== undefined &&
-      !phoneNumberError &&
-      phoneNumberError !== undefined &&
-      !emailError &&
-      emailError !== undefined
-    ) {
-      setFormIsValid(true);
-    } else {
+    if (firstNameError && lastNameError && phoneNumberError && emailError) {
       validateFirstName(firstName);
       validateLastName(lastName);
       validatePhoneNumber(phoneNumber);
       validateEmail(email);
       setFormIsValid(false);
+    } else {
+      setFormIsValid(true);
     }
   };
 
@@ -116,10 +116,10 @@ export const VanillaForm = () => {
     setPhoneNumberTouched(false);
     setEmailTouched(false);
 
-    setFirstNameError();
-    setLastNameError();
-    setPhoneNumberError();
-    setEmailError();
+    setFirstNameError(initialErrors.firstName);
+    setLastNameError(initialErrors.lastName);
+    setPhoneNumberError(initialErrors.phoneNumber);
+    setEmailError(initialErrors.email);
 
     setSubmitting(false);
     setRegistered(true);
