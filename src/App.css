@@ -12,8 +12,15 @@
   margin-right: 50px;
 }
 
-.header img {
-  width: 120px;
+.github {
+  width: 40px;
+  height: 40px;
+  margin-right: 20px;
+}
+
+.codesandbox {
+  width: 40px;
+  height: 40px;
 }
 
 .forms {
@@ -22,6 +29,7 @@
   justify-items: center;
   align-items: center;
   margin: 0 15%;
+  column-gap: 5%;
 }
 
 .App .forms > div:nth-child(1) {
