@@ -71,10 +71,10 @@ export const VanillaForm = () => {
     if (firstNameValid && lastNameValid && phoneNumberValid && emailValid) {
       setFormIsValid(true);
     } else {
-      setFirstNameValid(false);
-      setLastNameValid(false);
-      setPhoneNumberValid(false);
-      setEmailValid(false);
+      validateFirstName(firstName);
+      validateLastName(lastName);
+      validatePhoneNumber(phoneNumber);
+      validateEmail(email);
       setFormIsValid(false);
     }
   };
@@ -82,10 +82,22 @@ export const VanillaForm = () => {
   const handleRegisterSubmit = async () => {
     setSubmitting(true);
     await new Promise(resolve => setTimeout(resolve, 2000));
+
     setFirstName(initialValues.firstName);
     setLastName(initialValues.lastName);
     setPhoneNumber(initialValues.phoneNumber);
     setEmail(initialValues.email);
+
+    setFirstNameTouched(false);
+    setLastNameTouched(false);
+    setPhoneNumberTouched(false);
+    setEmailTouched(false);
+
+    setFirstNameValid();
+    setLastNameValid();
+    setPhoneNumberValid();
+    setEmailValid();
+
     setSubmitting(false);
     setRegistered(true);
   };
