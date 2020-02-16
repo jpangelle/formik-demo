@@ -11,6 +11,7 @@
   align-items: center;
   margin: 0 15%;
   column-gap: 40px;
+  row-gap: 40px;
 }
 
 .header {
@@ -78,23 +79,33 @@ h2 {
 
 @media (max-width: 1180px) {
   .App {
-    grid-template-columns: 130px auto auto;
-  }
-
-  .forms {
-    display: grid;
-    grid-column: 2/4;
-    justify-items: center;
-    align-items: center;
-    column-gap: 40px;
-    row-gap: 40px;
+    grid-template-columns: none;
+    grid-template-rows: 1fr min-content;
+    margin-top: 25px;
   }
 
   .App .forms > div:nth-child(1) {
-    grid-column: 1/4;
+    grid-column: 1/2;
+    grid-row: 1/2;
   }
 
   .App .forms > div:nth-child(2) {
-    grid-column: 1/4;
+    grid-column: 1/2;
+    grid-row: 2/3;
+  }
+
+  .forms {
+    grid-column: 1/2;
+    margin: 0 5px;
+    row-gap: 10px;
+  }
+
+  .header {
+    grid-column: 1/2;
+    grid-row: 2/3;
+    margin-left: 0;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    justify-self: center;
   }
 }
