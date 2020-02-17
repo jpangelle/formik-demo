@@ -91,7 +91,7 @@ export const VanillaForm = () => {
   };
 
   const validateForm = () => {
-    if (firstNameError && lastNameError && phoneNumberError && emailError) {
+    if (firstNameError || lastNameError || phoneNumberError || emailError) {
       validateFirstName(firstName);
       validateLastName(lastName);
       validatePhoneNumber(phoneNumber);
